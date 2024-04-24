@@ -1,38 +1,76 @@
-.App {
-  text-align: center;
+
+/* Colores */
+/* Fondo pantalla */
+.colorBG{
+  background-color: #2b2233;
+}
+/* Contenedores */
+.colorCont{
+  background-color: #6b349294;
+}
+/* Cálculos */
+.colorSpan{
+  background-color: #2b50a7;
+}
+/* Inputs */
+.colorInput{
+  background-color: #ffffff;
+}
+/* Resaltar interior contenedores */
+.colorNActive{
+  background-color: #99699e ;
+}
+/* Resaltar ++ */
+.colorHigh{
+  background-color: #802497;
+}
+/* Letras */
+.colorLetters{
+  color: #D4AF37;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+.characterSheet{
+  font-size: 12px;
+
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-around;
+  margin: 5px;
+  padding: 5px;
+}
+
+.containerAbs{
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.absTable{
+  display: grid;
+  grid-template-columns: repeat(10, 10%);
+  justify-content: space-between;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.smallInput{
+  justify-content: space-around;
+  width: 15px;
+  height: 15px;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
+.valueSpan{
+  display: inline-flex;
+  align-self: center;
+  width: 18px;
+  height: 18px;
+  border: outset 0.5px #2b2233;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

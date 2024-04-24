@@ -1,3 +1,5 @@
+import '../App.css';
+
 const HabilidadInput = ({ habilidad, datos, onCambio, atributoTotal }) => {
   // Función para manejar cambios en los inputs de nivel y modificador
   const handleChange = (e, key) => {
@@ -14,21 +16,24 @@ const HabilidadInput = ({ habilidad, datos, onCambio, atributoTotal }) => {
   };
 
   return (
-    <div className="habilidad">
-      <label>{habilidad}:</label>
+      <div className="absTable"  >
+      <label style={{ gridColumn: 'span 7', }}>{habilidad}:</label>
       <input
+        className='colorInput smallInput'
+        style={{ gridColumn: 'span 1', marginLeft:'-1px'}}  
         type="number"
-        value={datos.nivel}
-        onChange={e => handleChange(e, 'nivel')}
+          value={datos.nivel}
+          onChange={e => handleChange(e, 'nivel')}
       />
       <input
-        type="number"
-        value={datos.mod}
-        onChange={e => handleChange(e, 'mod')}
+          style={{ gridColumn: 'span 1', marginLeft:'-1px'}} 
+          className='colorInput smallInput'
+          type="number"
+          value={datos.mod}
+          onChange={e => handleChange(e, 'mod')}
       />
-      {/* El span muestra el total calculado, incluyendo el total del atributo relevante */}
-      <span>Total: {datos.total}</span>
-    </div>
+      <span className='valueSpan colorSpan' style={{ gridColumn: 'span 1', }} >{datos.total}</span>
+      </div>
   );
 };
 
