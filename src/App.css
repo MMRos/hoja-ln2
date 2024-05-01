@@ -74,3 +74,7 @@
   border: outset 0.5px #2b2233;
   justify-content: center;
 }
+
+.label{
+  font-weight: bold;
+}

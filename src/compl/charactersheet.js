@@ -7,9 +7,7 @@ function CalcPrest(nodesGeneral, renoun) {
   let value = nodesGeneral + renoun
   let prestige;
   
-  if (value >= 0 && value < 10) {
-    prestige = 1;
-  } else if (value >= 10 && value < 30) {
+  if (value >= 10 && value < 30) {
     prestige = 2;
   } else if (value >= 30 && value < 65) {
     prestige = 3;
@@ -47,9 +45,8 @@ const CharacterSheet = () => {
     will: { total: 0, current: 0, expended: 0, max: 0,},
     size: {diminutuo: 0, pequeño: 0, mediano:0, grande: 0, enorme: 0, gigantesco: 0, },
     nodesGeneral: 0,
-    nodesSpecific: 0,
     renoun: 0,
-    prestige: 1,
+    prestige: 2,
     attributes: null,
     predAttribute: null,
     magic: '',
@@ -118,9 +115,9 @@ const CharacterSheet = () => {
     }));
   }, []);
 
-  // Función para manejar cambios en atributos
+  // Function that handles attribute changes
   const handleAttributeChange = (attribute, newData) => {
-    // solo actualizamos el estado, el total se recalcula en useEffect
+    // only updates state, the rest is handled by useeffect
     setCharacter(prevCharacter => ({
       ...prevCharacter,
       attributes: {
@@ -132,7 +129,7 @@ const CharacterSheet = () => {
     }));
   };
 
-  // Función para manejar cambios en habilidades
+  // Function to manage skill value changes
   const handleSkillChange = (category, skill, data) => {
     setCharacter(prev => ({
       ...prev,
@@ -148,7 +145,7 @@ const CharacterSheet = () => {
     }));
   };
 
-  // useEffect para recalcular totales cada vez que cambia character
+  // useEffect to recalculate values every time something changes
   useEffect(() => {
     const recalculateTotals = () => {
       let needsUpdate = false;
@@ -210,13 +207,13 @@ const CharacterSheet = () => {
     }
 
     return Object.entries(character.abilities[category]).map(([skill, data]) => (
-      <HabilidadInput
-        key={skill}
-        habilidad={skill}
-        datos={data}
-        atributoTotal={character.attributes[category].total}
-        onCambio={(skillName, newData) => handleSkillChange(category, skillName, newData)}
-      />
+<HabilidadInput
+  habilidad={skill}
+  datos={data}
+  atributoTotal={character.attributes[category].total}
+  prestige={character.prestige}
+  onCambio={(skillName, newData) => handleSkillChange(category, skillName, newData)}
+/>
     ));
   };
 
@@ -227,18 +224,18 @@ const CharacterSheet = () => {
         <div className='container colorCont'>
           <img alt='Imagen' >
           </img>
-          <div>
-            <label>
-              Nombre:
+          <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+            <h4>
+              Nombre:  
               <input
                 type="text"
                 value={character.name}
                 onChange={e => setCharacter({ ...character, name: e.target.value })}
                 className='colorInput'
               />
-            </label>
+            </h4>
 
-            <label>Atributo Predominante:
+            <h4>Atributo Predominante:
               {/* GOTTA SOLVE HOW TO MAKE THIS SELECTION CHANGE THE VALUE */}
                 <select className='colorInput'>
                   <option id={''}></option>
@@ -246,8 +243,8 @@ const CharacterSheet = () => {
                   <option id={'PredAttrNERVES'}>Nervios</option>
                   <option id={'PredAttrMIND'}>Mente</option>
                 </select>
-              </label>
-              <label>Tamaño:
+              </h4>
+              <h4>Tamaño:
                 <select>
                   <option value={''}></option>
                   <option value={character.size.diminutuo}>Diminuto</option>
@@ -257,24 +254,55 @@ const CharacterSheet = () => {
                   <option value={character.size.enorme}>Enorme</option>
                   <option value={character.size.gigantesco}>Gigantesco</option>
                 </select>
-            </label>
-            <label>
+            </h4>
+            <h4>
               Prestigio:
               <span className='colorSpan valueSpan'>{character.prestige}</span>
-            </label>
+            </h4>
+          </div>
+          <div style={{ display:'flex', justifyContent: 'space-between' }}>
+            <h4>Vida</h4>
+            <div>
+              <div>
+                <span>Total</span>
+                <spant>Actuales</spant>
+                <span>Mod</span>
+              </div>
+              <div>
+                <span value={character.hitpoints.total}  className='valueSpan colorSpan'></span>
+                <input className='colorInput smallInput' value={character.hitpoints.mod} ></input>
+                <input className='colorInput smallInput' value={character.hitpoints.current} ></input>
+              </div>
+            </div>
+            <h4>Voluntad</h4>
+            <div>
+              <div>
+                <span>Total</span>
+                <spant>Actuales</spant>
+                <span>Gastado</span>
+                <span>Máximo</span>
+              </div>
+              <div>
+                <span value={character.will.total}  className='valueSpan colorSpan'></span>
+                <input className='colorInput smallInput' value={character.will.current} ></input>
+                <input className='colorInput smallInput' value={character.will.expended} ></input>
+                <span value={character.will.max}  className='valueSpan colorSpan'></span>
+              </div>
+            </div>
+            <h4>Nodos</h4>
+            <div>
+              <div>
+                <span>General</span>
+                <span>Actuales</span>
+              </div>
+              <div>
+                <input className='colorInput smallInput' value={character.nodesGeneral}></input>
+                <input className='colorInput smallInput'></input>
+              </div>
+            </div>
           </div>
           <div>
-            <label>Vida:</label>
-            <div>
-              <span>Total</span>
-              <spant>Actuales</spant>
-              <span>Mod</span>
-            </div>
-            <div>
-              <span value={character.hitpoints.total}  className='valueSpan colorSpan'></span>
-              <input className='colorInput smallInput' value={character.hitpoints.mod} ></input>
-              <input className='colorInput smallInput' value={character.hitpoints.current} ></input>
-            </div>
+
           </div>
         </div>
 

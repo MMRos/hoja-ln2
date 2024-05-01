@@ -1,40 +1,46 @@
 import '../App.css';
 
-const HabilidadInput = ({ habilidad, datos, onCambio, atributoTotal }) => {
+const HabilidadInput = ({ habilidad, datos, onCambio, atributoTotal, prestige }) => {
+  console.log("Prestige actual:", prestige); // Mostrar el valor actual de prestige para verificar
+
   // Función para manejar cambios en los inputs de nivel y modificador
   const handleChange = (e, key) => {
-    // Asumiendo que los valores son numéricos y se necesita calcular el total automáticamente
     const updatedValue = parseInt(e.target.value, 10) || 0;
     const updatedDatos = { ...datos, [key]: updatedValue };
     
-    // Actualizar el total de la habilidad basado en el nuevo nivel o modificador, sumando también el total del atributo relevante
-    if (key === 'nivel' || key === 'mod') {
-      updatedDatos.total = updatedDatos.nivel + updatedDatos.mod + atributoTotal;
+    console.log(`Valor actualizado de ${key}:`, updatedValue); // Mostrar los valores actualizados
+
+    // Actualizar el total de la habilidad
+    if (updatedDatos.level > 0) {
+      updatedDatos.total = updatedDatos.level + updatedDatos.mod + atributoTotal + prestige;
+      console.log("Nuevo total con Prestige:", updatedDatos.total); // Mostrar el total con prestige
+    } else {
+      updatedDatos.total = updatedDatos.level + updatedDatos.mod + atributoTotal;
     }
     
     onCambio(habilidad, updatedDatos);
   };
 
   return (
-      <div className="absTable"  >
+      <div className="absTable">
       <label style={{ gridColumn: 'span 7', }}>{habilidad}:</label>
       <input
         className='colorInput smallInput'
         style={{ gridColumn: 'span 1', marginLeft:'-1px'}}  
         type="number"
-          value={datos.nivel}
-          onChange={e => handleChange(e, 'nivel')}
+        value={datos.level}
+        onChange={e => handleChange(e, 'level')}
       />
       <input
-          style={{ gridColumn: 'span 1', marginLeft:'-1px'}} 
-          className='colorInput smallInput'
-          type="number"
-          value={datos.mod}
-          onChange={e => handleChange(e, 'mod')}
+        style={{ gridColumn: 'span 1', marginLeft:'-1px'}} 
+        className='colorInput smallInput'
+        type="number"
+        value={datos.mod}
+        onChange={e => handleChange(e, 'mod')}
       />
       <span className='valueSpan colorSpan' style={{ gridColumn: 'span 1', }} >{datos.total}</span>
       </div>
   );
 };
 
-export default HabilidadInput
+export default HabilidadInput;
